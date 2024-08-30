@@ -1,12 +1,20 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "force-app",
-      "default": true
+      "default": true,
+      "package": "Community Alerts",
+      "versionDescription": ""
     }
   ],
   "name": "CommunityAlerts",
-  "namespace": "",
+  "namespace": "alts",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "61.0"
+  "sourceApiVersion": "61.0",
+  "packageAliases": {
+    "Community Alerts": "0HoPg0000000085KAA",
+    "Community Alerts@0.1.0-1": "04tPg0000001iYTIAY"
+  }
 }
