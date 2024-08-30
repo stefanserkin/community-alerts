@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Show_Toast__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, a toast alert will be displayed to the user</description>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Show Toast</label>
+    <type>Checkbox</type>
+</CustomField>
