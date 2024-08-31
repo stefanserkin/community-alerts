@@ -37,9 +37,9 @@
 				<!-- EVENT MESSAGES -->
 				<template if:true={showDetails}>
 					<template for:each={messages} for:item="msg">
-						<p key={msg.Record_Id__c} class={msg.style}><b>
+						<p key={fieldRelatedRecordId} class={msg.style}><b>
 							<lightning-formatted-rich-text
-								value={msg.Message__c}
+								value={fieldMessage}
 							></lightning-formatted-rich-text>
 						</b></p>
 					</template>
