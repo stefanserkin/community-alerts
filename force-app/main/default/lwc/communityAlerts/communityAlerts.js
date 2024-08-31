@@ -3,13 +3,17 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { loadScript } from "lightning/platformResourceLoader";
 import cometdJS from '@salesforce/resourceUrl/cometd';
 import getSessionId from '@salesforce/apex/CommunityAlertsController.getSessionId';
+import getNamespace from '@salesforce/apex/CommunityAlertsController.getNamespace';
 import communityUserId from '@salesforce/user/Id';
 
 export default class CommunityAlerts extends LightningElement {
     libInitialized = false;
 	sessionId;
-	userId = communityUserId;
+	namespace;
 	error;
+
+	userId = communityUserId;
+	eventChannelName = 'Community_Alert__e';
 
 	hasMessage = false;
 	@track messages = [];
@@ -31,9 +35,25 @@ export default class CommunityAlerts extends LightningElement {
 				this.initializecometd()
 			});
 		} else if (error) {
-			console.error(error);
 			this.error = error;
+			console.error(this.error);
 			this.sessionId = undefined;
+		}
+	}
+
+	@wire(getNamespace)
+	wiredNamespace({ error, data }) {
+		if (data) {
+			if (data) {
+				this.namespace = `${data}__`;
+			} else {
+				this.namespace = '';
+			}
+			this.error = undefined;
+		} else if (error) {
+			this.error = error;
+			console.error(this.error);
+			this.namespace = undefined;
 		}
 	}
 
@@ -54,7 +74,7 @@ export default class CommunityAlerts extends LightningElement {
 
 		cometdlib.handshake( (status) => {
 			if (status.successful) {
-				cometdlib.subscribe('/event/Community_Alert__e', (message) => {
+				cometdlib.subscribe(this.eventChannel, (message) => {
 					let msg = message.data.payload;
 					if (msg.User_ID__c.substring(0,15) === this.userId.substring(0,15)) {
 						if (msg.Show_Toast__c) {
@@ -67,7 +87,10 @@ export default class CommunityAlerts extends LightningElement {
 				console.error('Error in handshaking: ' + JSON.stringify(status));
 			}
 		});
-		
+	}
+
+	get eventChannel() {
+		return `/event/${this.namespace}${this.eventChannelName}`;
 	}
 
     handleEventAction(msg) {
@@ -100,7 +123,6 @@ export default class CommunityAlerts extends LightningElement {
 				this.hasMessage = this.messages.length > 0 ? true : false;
 				break;
 			case 'Toast Only' :
-				console.log('Toast Only');
 				break;
 		}
 	}
@@ -147,7 +169,6 @@ export default class CommunityAlerts extends LightningElement {
 
 	handleTogglePopover() {
 		this.showPopover = !this.showPopover;
-		console.log('show popover is ' + this.showPopover);
 	}
 
 }
