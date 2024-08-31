@@ -3,12 +3,13 @@
     <fullName>Related_Record_ID__c</fullName>
     <description>The record ID of the record that this alert is related to. Used to update and delete existing alerts.</description>
     <externalId>false</externalId>
+    <inlineHelpText>The record ID of the record that this alert is related to. Used to update and delete existing alerts.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Related Record ID</label>
     <length>18</length>
-    <required>false</required>
+    <required>true</required>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -3,6 +3,7 @@
     <fullName>Action__c</fullName>
     <description>Create, Update, Delete, or Toast Only</description>
     <externalId>false</externalId>
+    <inlineHelpText>Enter Create to add an alert to the display. Enter Delete or Update to remove or update alerts related to the Related Record ID. Enter Toast Only to display a toast message, but not record any messaging to the component.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
