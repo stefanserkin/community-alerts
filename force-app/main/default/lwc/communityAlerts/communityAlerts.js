@@ -71,9 +71,9 @@ export default class CommunityAlerts extends LightningElement {
         cometdlib.handshake((status) => {
             if (status.successful) {
                 cometdlib.subscribe(this.eventChannel, (message) => {
-                    let msg = message.data.payload;
-                    if (msg[this.fieldName('User_ID__c')].substring(0, 15) === this.userId.substring(0, 15)) {
-                        if (msg[this.fieldName('Show_Toast__c')]) {
+                    let msg = this.processMessage(message.data.payload);
+                    if (msg.userId.substring(0, 15) === this.userId.substring(0, 15)) {
+                        if (msg.showToast) {
                             this.showToast(msg);
                         }
                         this.handleEventAction(msg);    
@@ -85,46 +85,51 @@ export default class CommunityAlerts extends LightningElement {
         });
     }
 
-    get eventChannel() {
-        return `/event/${this.namespace}${this.eventChannelName}`;
-    }
-
-	get fieldRelatedRecordId() {
-        return this.fieldName('Related_Record_ID__c');
-    }
-
-    get fieldMessage() {
-        return this.fieldName('Message__c');
+    processMessage(message) {
+        return {
+            action: message[this.fieldName('Action__c')],
+            userId: message[this.fieldName('User_ID__c')],
+            relatedRecordId: message[this.fieldName('Related_Record_ID__c')],
+            showToast: message[this.fieldName('Show_Toast__c')],
+            toastTitle: message[this.fieldName('Toast_Title__c')],
+            toastMessage: message[this.fieldName('Toast_Message__c')],
+            message: message[this.fieldName('Message__c')],
+            toastVariant: message[this.fieldName('Toast_Variant__c')],
+            toastMode: message[this.fieldName('Toast_Mode__c')],
+            style: this.getMessageStyle(message[this.fieldName('Toast_Variant__c')])
+        };
     }
 
     fieldName(field) {
         return `${this.namespace}${field}`;
     }
 
+    get eventChannel() {
+        return `/event/${this.namespace}${this.eventChannelName}`;
+    }
+
     handleEventAction(msg) {
-        switch (msg[this.fieldName('Action__c')]) {
+        switch (msg.action) {
             case 'Create':
-                msg.style = this.getMessageStyle(msg[this.fieldName('Toast_Variant__c')]);
                 this.messages.push(msg);
                 this.hasMessage = true;
                 break;
             case 'Update':
                 let hasExisting = false;
                 for (let i = 0; i < this.messages.length; i++) {
-                    if (this.messages[i][this.fieldName('Related_Record_ID__c')] == msg[this.fieldName('Related_Record_ID__c')]) {
-                        this.messages[i][this.fieldName('Message__c')] = msg[this.fieldName('Message__c')];
+                    if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
+                        this.messages[i].message = msg.message;
                         hasExisting = true;
                     }
                 }
                 if (!hasExisting) {
-                    msg.style = this.getMessageStyle(msg[this.fieldName('Toast_Variant__c')]);
                     this.messages.push(msg);
                     this.hasMessage = true;
                 }
                 break;
             case 'Delete':
                 for (let i = 0; i < this.messages.length; i++) {
-                    if (this.messages[i][this.fieldName('Related_Record_ID__c')] == msg[this.fieldName('Related_Record_ID__c')]) {
+                    if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
                         this.messages.splice(i, 1);
                     }
                 }
@@ -136,15 +141,11 @@ export default class CommunityAlerts extends LightningElement {
     }
 
     showToast(msg) {
-        let toastVariant = msg[this.fieldName('Toast_Variant__c')] != null ? msg[this.fieldName('Toast_Variant__c')] : 'info';
-        let toastTitle = msg[this.fieldName('Toast_Title__c')] != null ? msg[this.fieldName('Toast_Title__c')] : 'Alert';
-        let toastMessage = msg[this.fieldName('Toast_Message__c')] != null ? msg[this.fieldName('Toast_Message__c')] : '';
-        let toastMode = msg[this.fieldName('Toast_Mode__c')] != null ? msg[this.fieldName('Toast_Mode__c')] : 'dismissible';    
         const toastEvent = new ShowToastEvent({
-            title: toastTitle,
-            message: toastMessage,
-            variant: toastVariant,
-            mode: toastMode
+            title: msg.toastTitle != null ? msg.toastTitle : 'Alert',
+            message: msg.toastMessage != null ? msg.toastMessage : '',
+            variant: msg.toastVariant != null ? msg.toastVariant : 'info',
+            mode: msg.toastMode != null ? msg.toastMode : 'dismissible'
         });
         this.dispatchEvent(toastEvent);
     }
@@ -178,5 +179,5 @@ export default class CommunityAlerts extends LightningElement {
     handleTogglePopover() {
         this.showPopover = !this.showPopover;
     }
-    
+
 }

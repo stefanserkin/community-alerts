@@ -18,9 +18,9 @@
 		<div class="slds-popover__body">
 			<ul>
 				<template for:each={messages} for:item="msg">
-					<li key={msg.Related_Record_ID__c} class={msg.style}><b>
+					<li key={msg.relatedRecordId} class={msg.style}><b>
 						<lightning-formatted-rich-text
-							value={msg.Message__c}
+							value={msg.message}
 						></lightning-formatted-rich-text>
 					</b></li>
 				</template>
