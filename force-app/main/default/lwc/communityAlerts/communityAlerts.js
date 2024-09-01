@@ -28,23 +28,29 @@ import getNamespace from '@salesforce/apex/CommunityAlertsController.getNamespac
 import communityUserId from '@salesforce/user/Id';
 
 export default class CommunityAlerts extends LightningElement {
-    libInitialized = false;
+    @api subtleMode = false;
+    @api subtleModeHeader;
+
     sessionId;
     namespace = '';
     error;
 
+    libInitialized = false;
+    showPopover = false;
+    showDetails = true;
+
     userId = communityUserId;
     eventChannelName = 'Community_Alert__e';
 
-    hasMessage = false;
     @track messages = [];
 
-    @api subtleMode = false;
-    @api subtleModeHeader;
-    showPopover = false;
+    get hasMessage() {
+        return this.messages && this.messages.length > 0;
+    }
 
-    showDetails = true;
-    toggleDetailsLabel = 'Hide';
+    get eventChannel() {
+        return `/event/${this.namespace}${this.eventChannelName}`;
+    }
 
     @wire(getSessionId)
     wiredSessionId({ error, data }) {
@@ -93,11 +99,9 @@ export default class CommunityAlerts extends LightningElement {
             if (status.successful) {
                 cometdlib.subscribe(this.eventChannel, (message) => {
                     const msg = this.processMessage(message.data.payload);
-                    if (msg.userId.substring(0, 15) === this.userId.substring(0, 15)) {
-                        if (msg.showToast) {
-                            this.showToast(msg);
-                        }
-                        this.handleEventAction(msg);    
+                    const isCurrentUser = msg.userId.startsWith(this.userId.substring(0, 15));
+                    if (isCurrentUser) {
+                        this.handleEventAction(msg);
                     }
                 });
             } else {
@@ -125,17 +129,12 @@ export default class CommunityAlerts extends LightningElement {
         return `${this.namespace}${field}`;
     }
 
-    get eventChannel() {
-        return `/event/${this.namespace}${this.eventChannelName}`;
-    }
-
     handleEventAction(msg) {
         const action = msg.action.toLowerCase();
 
         switch (action) {
             case 'create':
                 this.messages.push(msg);
-                this.hasMessage = true;
                 break;
             case 'update':
                 let updated = false;
@@ -147,15 +146,17 @@ export default class CommunityAlerts extends LightningElement {
                 });
                 if (!updated) {
                     this.messages.push(msg);
-                    this.hasMessage = true;
                 }
                 break;
             case 'delete':
                 this.messages = this.messages.filter(message => message.relatedRecordId !== msg.relatedRecordId);
-                this.hasMessage = this.messages.length > 0;
                 break;
             case 'toast only':
                 break;
+        }
+
+        if (msg.showToast) {
+            this.showToast(msg);
         }
     }
 
@@ -190,9 +191,12 @@ export default class CommunityAlerts extends LightningElement {
         return style;
     }
 
+    get toggleDetailsLabel() {
+        return this.showDetails ? 'Hide' : 'Show';
+    }
+
     handleToggleDetails() {
         this.showDetails = !this.showDetails;
-        this.toggleDetailsLabel = this.showDetails ? 'Hide' : 'Show';
     }
 
     handleTogglePopover() {
