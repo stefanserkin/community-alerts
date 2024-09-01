@@ -92,7 +92,7 @@ export default class CommunityAlerts extends LightningElement {
         cometdlib.handshake((status) => {
             if (status.successful) {
                 cometdlib.subscribe(this.eventChannel, (message) => {
-                    let msg = this.processMessage(message.data.payload);
+                    const msg = this.processMessage(message.data.payload);
                     if (msg.userId.substring(0, 15) === this.userId.substring(0, 15)) {
                         if (msg.showToast) {
                             this.showToast(msg);
@@ -130,31 +130,29 @@ export default class CommunityAlerts extends LightningElement {
     }
 
     handleEventAction(msg) {
-        switch (msg.action.toLowerCase()) {
+        const action = msg.action.toLowerCase();
+
+        switch (action) {
             case 'create':
                 this.messages.push(msg);
                 this.hasMessage = true;
                 break;
             case 'update':
-                let hasExisting = false;
-                for (let i = 0; i < this.messages.length; i++) {
-                    if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
-                        this.messages[i].message = msg.message;
-                        hasExisting = true;
+                let updated = false;
+                this.messages.forEach((message) => {
+                    if (message.relatedRecordId === msg.relatedRecordId) {
+                        message.message = msg.message;
+                        updated = true;
                     }
-                }
-                if (!hasExisting) {
+                });
+                if (!updated) {
                     this.messages.push(msg);
                     this.hasMessage = true;
                 }
                 break;
             case 'delete':
-                for (let i = 0; i < this.messages.length; i++) {
-                    if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
-                        this.messages.splice(i, 1);
-                    }
-                }
-                this.hasMessage = this.messages.length > 0 ? true : false;
+                this.messages = this.messages.filter(message => message.relatedRecordId !== msg.relatedRecordId);
+                this.hasMessage = this.messages.length > 0;
                 break;
             case 'toast only':
                 break;
