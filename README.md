@@ -10,9 +10,20 @@ Enable Digital Experiences from Setup > Feature Settings > Digital Experiences >
 
 ## Install the Package
 
-Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tHs000000MplR
-Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tHs000000MplR
+**Latest (ver 0.3)**
+Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iv3IAA
+Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iv3IAA
+
+## Post-Installation Steps
+
+1. Add Community Alerts component to community pages
+    - When adding the component to a page, enable Subtle Mode to show an alert button icon that can be clicked for more information, rather than the full alerts panel.
+2. Assign Community Alerts User permission set to external users that should see alerts
 
 ## Docs
 
 - [Quip](https://quip.com/WneAAPF0RFOo/Community-Alerts)
+- [Platform Show Toast Event](https://developer.salesforce.com/docs/component-library/bundle/lightning-platform-show-toast-event/documentation)
+
+## License
+This package is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file for more information.
