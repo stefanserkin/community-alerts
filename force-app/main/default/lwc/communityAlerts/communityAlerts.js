@@ -109,12 +109,12 @@ export default class CommunityAlerts extends LightningElement {
     }
 
     handleEventAction(msg) {
-        switch (msg.action) {
-            case 'Create':
+        switch (msg.action.toLowerCase()) {
+            case 'create':
                 this.messages.push(msg);
                 this.hasMessage = true;
                 break;
-            case 'Update':
+            case 'update':
                 let hasExisting = false;
                 for (let i = 0; i < this.messages.length; i++) {
                     if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
@@ -127,7 +127,7 @@ export default class CommunityAlerts extends LightningElement {
                     this.hasMessage = true;
                 }
                 break;
-            case 'Delete':
+            case 'delete':
                 for (let i = 0; i < this.messages.length; i++) {
                     if (this.messages[i].relatedRecordId == msg.relatedRecordId) {
                         this.messages.splice(i, 1);
@@ -135,7 +135,7 @@ export default class CommunityAlerts extends LightningElement {
                 }
                 this.hasMessage = this.messages.length > 0 ? true : false;
                 break;
-            case 'Toast Only':
+            case 'toast only':
                 break;
         }
     }
