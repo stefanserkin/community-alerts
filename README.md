@@ -8,11 +8,11 @@ Installation will fail if Digital Experiences are not yet enabled in the target 
 
 Enable Digital Experiences from Setup > Feature Settings > Digital Experiences > Settings. Select Enable Digital Experiences.
 
-## Install the Package
+## Install Unlocked Package
 
-**Latest (ver 0.3)**
-Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iv3IAA
-Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iv3IAA
+**Latest (ver 0.4)**
+Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
+Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
 
 ## Post-Installation Steps
 

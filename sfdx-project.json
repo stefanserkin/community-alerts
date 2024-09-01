@@ -1,8 +1,8 @@
 {
   "packageDirectories": [
     {
-      "versionName": "ver 0.4",
-      "versionNumber": "0.4.0.NEXT",
+      "versionName": "ver 0.5",
+      "versionNumber": "0.5.0.NEXT",
       "path": "force-app",
       "default": true,
       "package": "Community Alerts",
@@ -20,6 +20,7 @@
     "Community Alerts@0.1.0-3": "04tPg0000001igXIAQ",
     "Community Alerts@0.2.0-1": "04tPg0000001iobIAA",
     "Community Alerts@0.3.0-1": "04tPg0000001iv3IAA",
-    "Community Alerts@0.4.0-1": "04tPg0000001iwfIAA"
+    "Community Alerts@0.4.0-1": "04tPg0000001iwfIAA",
+    "Community Alerts@0.4.0-2": "04tPg0000001iyHIAQ"
   }
 }
