@@ -11,8 +11,9 @@ Enable Digital Experiences from Setup > Feature Settings > Digital Experiences >
 ## Install Unlocked Package
 
 **Latest (ver 0.4)**
-Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
-Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
+
+- Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
+- Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000001iyHIAQ
 
 ## Post-Installation Steps
 
