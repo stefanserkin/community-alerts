@@ -22,7 +22,7 @@ Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04tPg0000
 
 ## Docs
 
-- [Quip](https://quip.com/WneAAPF0RFOo/Community-Alerts)
+- [Project Quip](https://quip.com/aRWkAY5Rbb3i/Community-Alerts)
 - [Platform Show Toast Event](https://developer.salesforce.com/docs/component-library/bundle/lightning-platform-show-toast-event/documentation)
 
 ## License
