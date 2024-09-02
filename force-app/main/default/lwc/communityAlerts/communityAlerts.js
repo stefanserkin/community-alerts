@@ -129,6 +129,15 @@ export default class CommunityAlerts extends LightningElement {
         return `${this.namespace}${field}`;
     }
 
+    getMessageStyle(toastVariant) {
+        var style = 'slds-var-m-around_large slds-text-heading_small';
+        toastVariant = toastVariant.toLowerCase();
+        if (toastVariant === 'error' || toastVariant === 'warning') {
+            style += ' slds-text-color_error';
+        }
+        return style;
+    }
+
     handleEventAction(msg) {
         const action = msg.action.toLowerCase();
 
@@ -168,27 +177,6 @@ export default class CommunityAlerts extends LightningElement {
             mode: msg.toastMode != null ? msg.toastMode : 'dismissible'
         });
         this.dispatchEvent(toastEvent);
-    }
-
-    getMessageStyle(toastVariant) {
-        var style = '';
-        switch (toastVariant) {
-            case 'success':
-                style = 'slds-var-m-around_large slds-text-heading_small';
-                break;
-            case 'error':
-                style = 'slds-var-m-around_large slds-text-color_error slds-text-heading_small';
-                break;
-            case 'warning':
-                style = 'slds-var-m-around_large slds-text-color_error slds-text-heading_small';
-                break;
-            case 'info':
-                style = 'slds-var-m-around_large slds-text-heading_small';
-                break;
-            default:
-                style = 'slds-var-m-around_large slds-text-heading_small';
-        }
-        return style;
     }
 
     get toggleDetailsLabel() {
