@@ -1,0 +1,62 @@
+site_name: Community Alerts
+site_url: https://docs.serkinsolutions.com/community-alerts/
+# The repo is public, so the site header links to it. No edit links.
+repo_url: https://github.com/stefanserkin/community-alerts
+edit_uri: ""
+docs_dir: site
+# MkDocs builds to site/ by default, which is our source folder.
+site_dir: _build
+
+theme:
+  name: material
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Admin guide:
+      - admin-guide/index.md
+  - User guide:
+      - user-guide/index.md
+      - Publish from Flow: user-guide/flow.md
+      - Publish from Apex: user-guide/apex.md
+      - Dynamic data and rich text: user-guide/dynamic-content.md
+  - Reference:
+      - Community Alert event fields: reference/event-fields.md
+      - Component glossary: reference/components.md
+  - Release notes:
+      - release-notes/index.md
+  - All product docs: https://docs.serkinsolutions.com/
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: material/web
+      link: https://serkinsolutions.com/
+      name: SerkinSolutions
+    - icon: material/bookshelf
+      link: https://docs.serkinsolutions.com/
+      name: All SerkinSolutions docs
+
+copyright: Copyright &copy; SerkinSolutions
