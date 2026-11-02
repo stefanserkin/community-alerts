@@ -9,3 +9,6 @@
 .vscode
 
 coverage/
+# Docs site (MkDocs); keep converter output and Markdown tables as written
+site/
+_build/
