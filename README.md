@@ -21,10 +21,15 @@ Enable Digital Experiences from Setup > Feature Settings > Digital Experiences >
     - When adding the component to a page, enable Subtle Mode to show an alert button icon that can be clicked for more information, rather than the full alerts panel.
 2. Assign Community Alerts User permission set to external users that should see alerts
 
-## Docs
+## Documentation
 
-- [Project Quip](https://quip.com/aRWkAY5Rbb3i/Community-Alerts)
-- [Platform Show Toast Event](https://developer.salesforce.com/docs/component-library/bundle/lightning-platform-show-toast-event/documentation)
+Admin guide, user guide, reference and release notes: <https://docs.serkinsolutions.com/community-alerts/>
+
+The docs are built from `site/` with MkDocs Material and published by the `pages` workflow.
 
 ## License
 This package is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file for more information.
+
+## Credits
+
+Built by Stefan Serkin, with Claude Code as a contributor. Every change is reviewed, tested and released by the maintainer.

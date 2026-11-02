@@ -32,6 +32,12 @@ nav:
       - admin-guide/index.md
   - User guide:
       - user-guide/index.md
+      - Publish from Flow: user-guide/flow.md
+      - Publish from Apex: user-guide/apex.md
+      - Dynamic data and rich text: user-guide/dynamic-content.md
+  - Reference:
+      - Community Alert event fields: reference/event-fields.md
+      - Component glossary: reference/components.md
   - Release notes:
       - release-notes/index.md
   - All product docs: https://docs.serkinsolutions.com/
